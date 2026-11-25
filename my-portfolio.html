@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Personal Portfolio — Blueprint Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#07090e;
+  --surface:#0d111a;
+  --surface-2:#121826;
+  --ink:#f1f5f9;
+  --muted:#94a3b8;
+  --line:rgba(148,163,184,.12);
+  --line-2:rgba(148,163,184,.22);
+  --accent:#00ff88;
+  --amber:#f59e0b;
+  --emerald:#34d399;
+  --display:'Space Grotesk',system-ui,sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(800px 450px at 85% 0%, rgba(0,255,136,.10), transparent 60%),
+    radial-gradient(600px 420px at 10% 60%, rgba(0,255,136,.04), transparent 60%),
+    linear-gradient(rgba(148,163,184,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,.035) 1px, transparent 1px);
+  background-size:100% 100%,100% 100%,48px 48px,48px 48px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+
+/* Top Command Header */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:rgba(7,9,14,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{
+  max-width:1100px;margin:0 auto;padding:.85rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.brand{
+  display:inline-flex;align-items:center;gap:.6rem;font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.02em;
+}
+.brand-badge{
+  width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),#16a34a);color:#04101a;font-family:var(--mono);font-size:.75rem;font-weight:700;
+}
+.nav-links{display:flex;align-items:center;gap:1.25rem;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{
+  padding:.42rem .9rem;border-radius:8px;background:rgba(0,255,136,.12);
+  border:1px solid rgba(0,255,136,.3);color:var(--accent) !important;font-weight:500;
+}
+.nav-cta:hover{background:var(--accent);color:#04101a !important}
+
+.wrap{max-width:1100px;margin:0 auto;padding:3.5rem 1.5rem 5rem}
+
+/* Bento Hero */
+.hero{
+  display:grid;grid-template-columns:1.2fr .85fr;gap:2rem;align-items:center;
+  padding:1.5rem 0 4rem;border-bottom:1px solid var(--line);
+}
+.status-pill{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .8rem;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line-2);font-family:var(--mono);font-size:.74rem;color:var(--emerald);
+  margin-bottom:1.25rem;
+}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 10px var(--emerald)}
+.hero h1{
+  font-family:var(--display);font-size:clamp(2.35rem,4.5vw,3.75rem);line-height:1.08;
+  letter-spacing:-.035em;margin:0 0 1rem;font-weight:700;
+}
+.hero h1 span{
+  background:linear-gradient(90deg,#f1f5f9 0%,var(--accent) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-bio{font-size:1.04rem;color:var(--muted);max-width:54ch;margin:0 0 1.75rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:.45rem;padding:.72rem 1.3rem;border-radius:10px;
+  background:var(--accent);color:#04101a;font-family:var(--mono);font-size:.8rem;font-weight:600;border:0;cursor:pointer;
+  transition:transform .18s,box-shadow .18s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,255,136,.24)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.45rem;padding:.72rem 1.3rem;border-radius:10px;
+  background:var(--surface);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:.8rem;cursor:pointer;
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Snapshot Bento Grid */
+.bento-2x2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+.bento-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.15rem;
+  display:flex;flex-direction:column;justify-content:space-between;gap:.45rem;
+  transition:border-color .2s;
+}
+.bento-card:hover{border-color:var(--line-2)}
+.bento-k{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.bento-v{font-family:var(--display);font-size:1.18rem;font-weight:600;color:var(--ink)}
+.bento-v.accent{color:var(--accent)}
+.bento-v.amber{color:var(--amber)}
+
+/* Sections */
+section{padding:4rem 0 1rem;scroll-margin-top:4.5rem}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.75rem}
+.sec-kicker{display:block;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+.sec-head h2{font-family:var(--display);font-size:clamp(1.6rem,2.8vw,2.2rem);margin:0;letter-spacing:-.025em}
+
+/* Filter Pills & Project Grid */
+.filter-row{display:flex;flex-wrap:wrap;gap:.45rem}
+.filter-btn{
+  padding:.38rem .85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);font-family:var(--mono);font-size:.75rem;cursor:pointer;transition:all .18s;
+}
+.filter-btn:hover{border-color:var(--line-2);color:var(--ink)}
+.filter-btn.active{background:rgba(0,255,136,.12);border-color:var(--accent);color:var(--accent)}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.15rem}
+.proj-card{
+  position:relative;display:flex;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.5rem;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.proj-card:hover{transform:translateY(-3px);border-color:rgba(0,255,136,.4);box-shadow:0 16px 36px -16px rgba(0,255,136,.22)}
+.proj-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.75rem}
+.proj-role{font-family:var(--mono);font-size:.7rem;padding:.2rem .55rem;border-radius:6px;background:rgba(0,255,136,.1);color:var(--accent)}
+.proj-num{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.proj-card h3{font-family:var(--display);font-size:1.25rem;margin:0 0 .5rem}
+.proj-card p{color:var(--muted);font-size:.92rem;margin:0 0 1.15rem;flex:1}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:1.15rem}
+.proj-tag{font-family:var(--mono);font-size:.72rem;padding:.2rem .55rem;border-radius:6px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink)}
+.proj-foot{display:flex;gap:1rem;padding-top:.9rem;border-top:1px solid var(--line);font-family:var(--mono);font-size:.78rem}
+.proj-foot a{color:var(--accent)}
+.proj-foot a:hover{text-decoration:underline}
+
+/* Stack Matrix */
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:.75rem}
+.stack-item{
+  display:flex;align-items:center;gap:.6rem;padding:.85rem 1rem;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  font-family:var(--mono);font-size:.8rem;transition:border-color .2s,transform .2s;
+}
+.stack-item:hover{border-color:var(--accent);transform:translateY(-2px)}
+.stack-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* Experience & Education Two-Column */
+.split-2{display:grid;grid-template-columns:1.15fr .85fr;gap:1.5rem}
+.tl-col{display:grid;gap:1rem;align-content:start}
+.tl-card{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:12px;padding:1.25rem;
+}
+.tl-card.edu{border-left-color:var(--amber)}
+.tl-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem;margin-bottom:.25rem}
+.tl-head h3{font-family:var(--display);font-size:1.08rem;margin:0}
+.tl-date{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.tl-org{font-family:var(--mono);font-size:.82rem;color:var(--accent);margin:0 0 .45rem}
+.tl-card.edu .tl-org{color:var(--amber)}
+.tl-desc{margin:0;color:var(--muted);font-size:.9rem}
+
+/* Contact Banner */
+.contact-box{
+  margin-top:1rem;background:linear-gradient(135deg,var(--surface) 0%,var(--surface-2) 100%);
+  border:1px solid var(--line-2);border-radius:20px;padding:2.25rem;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;
+}
+.contact-box h2{font-family:var(--display);font-size:clamp(1.6rem,2.8vw,2.25rem);margin:0 0 .4rem}
+.contact-links{display:flex;flex-wrap:wrap;gap:.65rem}
+
+.footer{
+  margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;
+  font-family:var(--mono);font-size:.76rem;color:var(--muted);
+}
+
+/* Floating Customize & Top */
+.edit-fab{
+  position:fixed;left:1.25rem;bottom:1.25rem;z-index:45;
+  padding:.58rem 1rem;border-radius:10px;background:var(--accent);color:#04101a;
+  border:0;font-family:var(--mono);font-size:.76rem;font-weight:600;cursor:pointer;
+  box-shadow:0 10px 26px rgba(0,255,136,.25);
+}
+.top-btn{
+  position:fixed;right:1.25rem;bottom:1.25rem;z-index:45;
+  padding:.52rem .85rem;border-radius:10px;background:rgba(13,17,26,.9);
+  border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:.74rem;cursor:pointer;
+}
+.top-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Drawer */
+.drawer-backdrop{
+  position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
+  display:none;justify-content:flex-start;
+}
+.drawer-backdrop.open{display:flex}
+.drawer{
+  width:min(430px,100vw);height:100vh;background:#0a0e16;border-right:1px solid var(--line-2);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.drawer-head{
+  display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;
+  border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.82rem;
+}
+.drawer-body{flex:1;overflow-y:auto;padding:1.25rem;display:grid;gap:.95rem;align-content:start}
+.drawer-foot{display:flex;gap:.5rem;padding:1rem 1.25rem;border-top:1px solid var(--line);background:#070a10}
+.field{display:grid;gap:.28rem}
+.field label{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.field input,.field textarea{
+  width:100%;font-family:var(--sans);font-size:.86rem;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:.52rem .72rem;
+}
+.field textarea{min-height:68px;resize:vertical}
+.mini-list{display:grid;gap:.4rem}
+.mini-row{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  padding:.48rem .7rem;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:.82rem;
+}
+.mini-del{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:1rem}
+.mini-del:hover{color:#f87171}
+
+@media(max-width:860px){
+  .hero,.split-2{grid-template-columns:1fr}
+  .nav-links{gap:.75rem}
+}
+@media(max-width:520px){
+  .bento-2x2{grid-template-columns:1fr}
+  .nav-links a:not(.nav-cta){display:none}
+}
+
+.blink-cursor{display:inline-block;width:.48ch;height:.92em;background:var(--accent);vertical-align:-.1em;margin-left:.2rem;box-shadow:0 0 14px rgba(0,255,136,.6);animation:blinkCur 1s steps(2,start) infinite}
+@keyframes blinkCur{to{visibility:hidden}}
+.fx-cursor-dot,.fx-cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .2s}
+.fx-cursor-dot{width:7px;height:7px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.fx-cursor-ring{width:30px;height:30px;border:1.5px solid rgba(0,255,136,.55);background:rgba(0,255,136,.05);transition:width .18s,height .18s,border-color .18s,opacity .2s}
+.fx-cursor-ring.hover{width:42px;height:42px;border-color:var(--accent);background:rgba(0,255,136,.12)}
+@media(hover:none),(prefers-reduced-motion:reduce){.fx-cursor-dot,.fx-cursor-ring{display:none}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top">
+      <span class="brand-badge" id="brandInitials">AS</span>
+      <span id="brandName">Aarav Sharma</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#background">Background</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="appRoot"></main>
+
+<button type="button" class="edit-fab" id="openDrawerBtn">✎ Customize</button>
+<button type="button" class="top-btn" id="topBtn">↑ Top</button>
+
+<div class="drawer-backdrop" id="drawerBackdrop">
+  <aside class="drawer" aria-label="Customize Portfolio">
+    <div class="drawer-head">
+      <span style="color:var(--accent)">CUSTOMIZE PORTFOLIO</span>
+      <button type="button" class="btn-ghost" style="padding:.3rem .7rem;font-size:.72rem" id="closeDrawerBtn">Close</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+    <div class="drawer-foot">
+      <button type="button" class="btn-primary" style="flex:1;justify-content:center" id="exportHtmlBtn">Download HTML</button>
+      <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
+    </div>
+  </aside>
+</div>
+
+<script>
+const STORAGE_KEY = 'blueprint_portfolio_v1';
+
+const DEFAULT_DATA = {
+  name: 'Aarav Sharma',
+  headline: 'Full-Stack Engineer building fast, reliable web systems.',
+  bio: 'Computer Science undergraduate focused on clean architecture, distributed backends, and responsive interfaces. I turn complex workflows into crisp, dependable software.',
+  location: 'Hyderabad, India',
+  availability: 'Open to Internships',
+  focus: 'Systems & Web Engineering',
+  contactEmail: 'aarav@example.com',
+  github: 'https://github.com',
+  linkedin: 'https://linkedin.com',
+  resumeUrl: '',
+  skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Python', 'Tailwind CSS', 'Docker', 'Redis', 'Next.js', 'FastAPI', 'Git', 'Linux'],
+  projects: [
+    { id: 'p1', title: 'PulseBoard Telemetry', role: 'Full-Stack', tech: 'React, Node.js, PostgreSQL, Redis', desc: 'Real-time event telemetry dashboard with custom funnel queries, WebSocket streaming, and sub-100ms filtering.', link: 'https://github.com', repo: 'https://github.com' },
+    { id: 'p2', title: 'EdgeRouter Mesh', role: 'Systems', tech: 'Go, Docker, WireGuard, Prometheus', desc: 'Lightweight reverse-proxy and service mesh monitor for self-hosted clusters with zero-downtime reloads.', link: 'https://github.com', repo: 'https://github.com' },
+    { id: 'p3', title: 'DocuBrief CLI', role: 'DevTools', tech: 'Python, FastAPI, SQLite, Vite', desc: 'Command-line tool that indexes local Markdown documentation into a fast searchable static knowledge base.', link: 'https://github.com', repo: 'https://github.com' },
+  ],
+  experience: [
+    { id: 'e1', title: 'Frontend Engineering Intern', org: 'NovaStack Labs', date: 'May 2026 – Jul 2026', desc: 'Built reusable accessible React components, cut bundle size by 28%, and shipped real-time analytics views.' },
+    { id: 'e2', title: 'Technical Lead', org: 'University Developer Club', date: '2025 – Present', desc: 'Mentored 40+ peers in modern web engineering and organized a 36-hour campus hackathon.' },
+  ],
+  education: [
+    { id: 'ed1', title: 'B.Tech in Computer Science & Engineering', org: 'KL University', date: '2024 – 2028', desc: '9.1 CGPA · Coursework in OS, Distributed Systems & Databases' },
+  ]
+};
+
+let data = structuredClone(DEFAULT_DATA);
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if (saved && typeof saved === 'object') data = { ...structuredClone(DEFAULT_DATA), ...saved };
+} catch {}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+}
+
+const esc = (v = '') => String(v).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const safeUrl = (v = '') => /^(https?:\/\/|mailto:)/i.test(String(v).trim()) ? esc(String(v).trim()) : '#';
+const getInitials = (n = '') => {
+  const p = String(n).trim().split(/\s+/).filter(Boolean);
+  if (!p.length) return 'PM';
+  return p.length === 1 ? p[0].slice(0,2).toUpperCase() : (p[0][0] + p[p.length-1][0]).toUpperCase();
+};
+
+let activeFilter = 'All';
+
+function renderPortfolio() {
+  document.getElementById('brandInitials').textContent = getInitials(data.name);
+  document.getElementById('brandName').textContent = data.name || 'Portfolio';
+
+  const roles = ['All', ...new Set(data.projects.map(p => p.role).filter(Boolean))];
+  if (!roles.includes(activeFilter)) activeFilter = 'All';
+  const visibleProjects = activeFilter === 'All' ? data.projects : data.projects.filter(p => p.role === activeFilter);
+
+  document.getElementById('appRoot').innerHTML = `
+    <header class="hero" id="top">
+      <div>
+        <div class="status-pill"><span class="status-dot"></span><span>${esc(data.availability || 'Available')}</span></div>
+        <h1>${esc(data.name)}<br><span>${esc(data.headline)}</span><span class="blink-cursor" aria-hidden="true"></span></h1>
+        <p class="hero-bio">${esc(data.bio)}</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#work">View Selected Work →</a>
+          <a class="btn-ghost" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="bento-2x2">
+        <div class="bento-card">
+          <span class="bento-k">Focus</span>
+          <span class="bento-v accent">${esc(data.focus)}</span>
+        </div>
+        <div class="bento-card">
+          <span class="bento-k">Location</span>
+          <span class="bento-v">${esc(data.location || 'Remote')}</span>
+        </div>
+        <div class="bento-card">
+          <span class="bento-k">Projects Shipped</span>
+          <span class="bento-v amber">${data.projects.length} Featured</span>
+        </div>
+        <div class="bento-card">
+          <span class="bento-k">Core Stack</span>
+          <span class="bento-v">${data.skills.length}+ Tools</span>
+        </div>
+      </div>
+    </header>
+
+    <section id="work">
+      <div class="sec-head">
+        <div>
+          <span class="sec-kicker">01 / Selected Work</span>
+          <h2>Projects &amp; Systems</h2>
+        </div>
+        <div class="filter-row" id="filterRow">
+          ${roles.map(r => `<button type="button" class="filter-btn ${r === activeFilter ? 'active' : ''}" data-role="${esc(r)}">${esc(r)}</button>`).join('')}
+        </div>
+      </div>
+      <div class="proj-grid">
+        ${visibleProjects.map((p, i) => {
+          const tags = String(p.tech || '').split(',').map(x => x.trim()).filter(Boolean);
+          return `
+            <article class="proj-card">
+              <div class="proj-top">
+                <span class="proj-role">${esc(p.role || 'Project')}</span>
+                <span class="proj-num">0${i + 1}</span>
+              </div>
+              <h3>${esc(p.title)}</h3>
+              <p>${esc(p.desc)}</p>
+              ${tags.length ? `<div class="proj-tags">${tags.map(t => `<span class="proj-tag">${esc(t)}</span>`).join('')}</div>` : ''}
+              <div class="proj-foot">
+                ${p.link ? `<a href="${safeUrl(p.link)}" target="_blank" rel="noreferrer">Live Demo ↗</a>` : ''}
+                ${p.repo ? `<a href="${safeUrl(p.repo)}" target="_blank" rel="noreferrer">Source ↗</a>` : ''}
+              </div>
+            </article>`;
+        }).join('')}
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="sec-head">
+        <div>
+          <span class="sec-kicker">02 / Capabilities</span>
+          <h2>Technical Stack</h2>
+        </div>
+      </div>
+      <div class="stack-grid">
+        ${data.skills.map(s => `<div class="stack-item"><span class="stack-dot"></span><span>${esc(s)}</span></div>`).join('')}
+      </div>
+    </section>
+
+    <section id="background">
+      <div class="sec-head">
+        <div>
+          <span class="sec-kicker">03 / Background</span>
+          <h2>Experience &amp; Education</h2>
+        </div>
+      </div>
+      <div class="split-2">
+        <div class="tl-col">
+          ${data.experience.map(e => `
+            <article class="tl-card">
+              <div class="tl-head"><h3>${esc(e.title)}</h3><span class="tl-date">${esc(e.date)}</span></div>
+              <p class="tl-org">${esc(e.org)}</p>
+              ${e.desc ? `<p class="tl-desc">${esc(e.desc)}</p>` : ''}
+            </article>
+          `).join('')}
+        </div>
+        <div class="tl-col">
+          ${data.education.map(ed => `
+            <article class="tl-card edu">
+              <div class="tl-head"><h3>${esc(ed.title)}</h3><span class="tl-date">${esc(ed.date)}</span></div>
+              <p class="tl-org">${esc(ed.org)}</p>
+              ${ed.desc ? `<p class="tl-desc">${esc(ed.desc)}</p>` : ''}
+            </article>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-box">
+        <div>
+          <span class="sec-kicker">04 / Contact</span>
+          <h2>Let's build something together.</h2>
+          <p style="margin:0;color:var(--muted)">Reach out for collaborations, internships, or engineering roles.</p>
+        </div>
+        <div class="contact-links">
+          ${data.contactEmail ? `<a class="btn-primary" href="mailto:${esc(data.contactEmail)}">Email Me →</a>` : ''}
+          ${data.github ? `<a class="btn-ghost" href="${safeUrl(data.github)}" target="_blank" rel="noreferrer">GitHub ↗</a>` : ''}
+          ${data.linkedin ? `<a class="btn-ghost" href="${safeUrl(data.linkedin)}" target="_blank" rel="noreferrer">LinkedIn ↗</a>` : ''}
+          ${data.resumeUrl ? `<a class="btn-ghost" href="${safeUrl(data.resumeUrl)}" target="_blank" rel="noreferrer">Resume ↗</a>` : ''}
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© ${new Date().getFullYear()} ${esc(data.name)}</span>
+      <span>${esc(data.location)}</span>
+    </footer>
+  `;
+
+  document.querySelectorAll('#filterRow .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeFilter = btn.dataset.role;
+      renderPortfolio();
+    });
+  });
+}
+
+function renderDrawer() {
+  const body = document.getElementById('drawerBody');
+  body.innerHTML = `
+    <div class="field"><label>Full Name</label><input data-k="name" value="${esc(data.name)}" /></div>
+    <div class="field"><label>Headline</label><input data-k="headline" value="${esc(data.headline)}" /></div>
+    <div class="field"><label>Focus Area</label><input data-k="focus" value="${esc(data.focus)}" /></div>
+    <div class="field"><label>Location</label><input data-k="location" value="${esc(data.location)}" /></div>
+    <div class="field"><label>Availability</label><input data-k="availability" value="${esc(data.availability)}" /></div>
+    <div class="field"><label>Bio</label><textarea data-k="bio">${esc(data.bio)}</textarea></div>
+    <div class="field"><label>Email</label><input data-k="contactEmail" value="${esc(data.contactEmail)}" /></div>
+    <div class="field"><label>GitHub URL</label><input data-k="github" value="${esc(data.github)}" /></div>
+    <div class="field"><label>LinkedIn URL</label><input data-k="linkedin" value="${esc(data.linkedin)}" /></div>
+    <div class="field"><label>Skills (comma-separated)</label><input id="skillsCsv" value="${esc(data.skills.join(', '))}" /></div>
+    <div class="field">
+      <label>Projects (${data.projects.length})</label>
+      <div class="mini-list">
+        ${data.projects.map(p => `<div class="mini-row"><span>${esc(p.title)}</span><button type="button" class="mini-del" data-del-proj="${p.id}">×</button></div>`).join('')}
+      </div>
+      <div style="display:grid;gap:.4rem;margin-top:.4rem">
+        <input id="newProjTitle" placeholder="Project title" />
+        <input id="newProjRole" placeholder="Category (e.g. Full-Stack, AI)" />
+        <input id="newProjTech" placeholder="Tech stack (e.g. React, Go)" />
+        <input id="newProjDesc" placeholder="Short description" />
+        <button type="button" class="btn-ghost" style="padding:.45rem;justify-content:center" id="addProjBtn">+ Add Project</button>
+      </div>
+    </div>
+  `;
+
+  body.querySelectorAll('[data-k]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      data[inp.dataset.k] = inp.value;
+      save(); renderPortfolio();
+    });
+  });
+
+  document.getElementById('skillsCsv').addEventListener('input', e => {
+    data.skills = e.target.value.split(',').map(x => x.trim()).filter(Boolean);
+    save(); renderPortfolio();
+  });
+
+  body.querySelectorAll('[data-del-proj]').forEach(b => {
+    b.addEventListener('click', () => {
+      data.projects = data.projects.filter(x => x.id !== b.dataset.delProj);
+      save(); renderDrawer(); renderPortfolio();
+    });
+  });
+
+  document.getElementById('addProjBtn').addEventListener('click', () => {
+    const title = document.getElementById('newProjTitle').value.trim();
+    if (!title) return;
+    data.projects.push({
+      id: 'p' + Date.now(),
+      title,
+      role: document.getElementById('newProjRole').value.trim() || 'Project',
+      tech: document.getElementById('newProjTech').value.trim(),
+      desc: document.getElementById('newProjDesc').value.trim(),
+      link: 'https://github.com',
+      repo: 'https://github.com'
+    });
+    save(); renderDrawer(); renderPortfolio();
+  });
+}
+
+document.getElementById('openDrawerBtn').addEventListener('click', () => {
+  renderDrawer();
+  document.getElementById('drawerBackdrop').classList.add('open');
+});
+document.getElementById('closeDrawerBtn').addEventListener('click', () => {
+  document.getElementById('drawerBackdrop').classList.remove('open');
+});
+document.getElementById('drawerBackdrop').addEventListener('click', e => {
+  if (e.target.id === 'drawerBackdrop') document.getElementById('drawerBackdrop').classList.remove('open');
+});
+document.getElementById('topBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+document.getElementById('resetBtn').addEventListener('click', () => {
+  data = structuredClone(DEFAULT_DATA);
+  save(); renderDrawer(); renderPortfolio();
+});
+document.getElementById('exportHtmlBtn').addEventListener('click', () => {
+  const clone = document.documentElement.cloneNode(true);
+  const d = clone.querySelector('#drawerBackdrop'); if (d) d.classList.remove('open');
+  const html = '<!doctype html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const slug = (data.name || 'my').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const a = document.createElement('a');
+  a.href = url; a.download = (slug || 'my') + '-portfolio.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+});
+
+renderPortfolio();
+</script>
+
+<div class="fx-cursor-dot" id="fxDot"></div>
+<div class="fx-cursor-ring" id="fxRing"></div>
+<script>
+(function(){
+  const dot = document.getElementById('fxDot');
+  const ring = document.getElementById('fxRing');
+  if (!dot || !ring || window.matchMedia('(hover: none)').matches) return;
+  let mx = -100, my = -100, rx = -100, ry = -100, active = false;
+  window.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    if (!active) { active = true; dot.style.opacity = '1'; ring.style.opacity = '1'; }
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; active = false; });
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest('a,button,input,textarea')) ring.classList.add('hover');
+    else ring.classList.remove('hover');
+  });
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+</body>
+</html>
